@@ -6,7 +6,16 @@ import Loading from "../components/Loading";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 export const ProfileComponent = () => {
-  const { user } = useAuth0();
+  const { user ,getAccessTokenSilently} = useAuth0();
+  const [token, setToken] = React.useState();
+  React.useEffect(() => {
+   const getToken = async () => {
+    const token = await getAccessTokenSilently();
+    setToken(token);
+    console.log("🚀 ~ file: Profile.js ~ line 14 ~ getToken ~ token", token)
+   }
+   getToken();
+  }, [])
 
   return (
     <Container className="mb-5">
@@ -21,6 +30,10 @@ export const ProfileComponent = () => {
         <Col md>
           <h2>{user.name}</h2>
           <p className="lead text-muted">{user.email}</p>
+        </Col>
+        <Col md>
+          <h2>Token:</h2>
+          <p className="lead text-muted">{token}</p>
         </Col>
       </Row>
       <Row>

@@ -27,6 +27,8 @@ const NavBar = () => {
     isAuthenticated,
     loginWithRedirect,
     logout,
+    
+    
   } = useAuth0();
   const toggle = () => setIsOpen(!isOpen);
 
